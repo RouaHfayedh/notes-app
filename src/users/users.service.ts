@@ -24,7 +24,7 @@ export class UsersService {
 
   async findOne(email: string) {
     const user= await this.userModel.find({email:email}).exec();
-    return user;
+    return user[0];
   }
 
   async findUser(id: number) {

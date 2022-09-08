@@ -11,7 +11,7 @@ class RefreshToken {
   ipAddress: string;
 
   sign(): string {
-    return sign({ ...this }, process.env.REFRESH_SECRET);
+    return sign({ ...this }, "464768F1F2F7BF8D167FAF2D56BDB"||process.env.REFRESH_SECRET);
   }
 }
 

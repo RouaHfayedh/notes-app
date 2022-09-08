@@ -55,11 +55,11 @@ export class AuthService {
         }
         console.log(user);
         // verify your user -- use argon2 for password hashing!!
-        if (user[0].password !== password) {
+        if (user.password !== password) {
           return undefined;
         }
     
-        return this.newRefreshAndAccessToken(user[0].id, values);
+        return this.newRefreshAndAccessToken(user.id, values);
       }
 
 
@@ -83,11 +83,23 @@ export class AuthService {
             {
               userId: user.id,
             },
-            process.env.ACCESS_SECRET,
+            "6865FB8AA3D2A2E1"||process.env.ACCESS_SECRET,
             {
               expiresIn: '1h',
             },
           ),
         };
+      }
+
+      async logout(refreshStr): Promise<void> {
+        const refreshToken = await this.retrieveRefreshToken(refreshStr);
+    
+        if (!refreshToken) {
+          return;
+        }
+        // delete refreshtoken from db
+        this.refreshTokens = this.refreshTokens.filter(
+          (refreshToken) => refreshToken.id !== refreshToken.id,
+        );
       }
 }
