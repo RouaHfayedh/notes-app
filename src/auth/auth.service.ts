@@ -57,7 +57,6 @@ export class AuthService {
           return undefined;
         }
         console.log(user);
-        // verify your user -- use argon2 for password hashing!!
         if (user.password !== password) {
           return undefined;
         }
