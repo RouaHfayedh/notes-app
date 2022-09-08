@@ -8,9 +8,9 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
+  @Post("register")
   create(@Body() createUserDto: CreateUserDto) {
-    // return this.usersService.create(createUserDto);
+     return this.usersService.create(createUserDto);
   }
 
   @Get()
@@ -37,6 +37,7 @@ export class UsersController {
   @Get('/me')
   me(@Req() request) {
     const userId = request.user.userId;
-    return this.usersService.findOne(userId);
+    console.log(userId);
+    return this.usersService.findUser(userId);
   }
 }

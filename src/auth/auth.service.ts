@@ -12,12 +12,15 @@ export class AuthService {
 
 
     async refresh(refreshStr: string): Promise<string | undefined> {
+       
         const refreshToken = await this.retrieveRefreshToken(refreshStr);
+        console.log(!refreshToken)
         if (!refreshToken) {
           return undefined;
         }
     
         const user = await this.userService.findUser(refreshToken.userId);
+        console.log(user)
         if (!user) {
           return undefined;
         }
