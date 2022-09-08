@@ -9,26 +9,20 @@ import { Model } from 'mongoose';
 @Injectable()
 export class NotesService {
 
-  constructor(@InjectModel(Note.name) private userModel: Model<NoteDocument>) {}
+  constructor(@InjectModel(Note.name) private noteModel: Model<NoteDocument>) {}
 
   create(createNoteDto: CreateNoteDto) {
-    const createdNote = new this.userModel(createNoteDto);
+    const createdNote = new this.noteModel(createNoteDto);
     return createdNote.save();
   }
 
-  findAll() {
-    return `This action returns all notes`;
+  async findAll() {
+    return await this.noteModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} note`;
+  async findOne(id: number) {
+    const user= await this.noteModel.find({id:id}).exec();
+    return user[0];
   }
 
-  update(id: number, updateNoteDto: UpdateNoteDto) {
-    return `This action updates a #${id} note`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} note`;
-  }
 }
