@@ -6,13 +6,14 @@ import {NoteDocument } from '../schemas/note.schema';
 import { Note } from '../notes/entities/note.entity';
 import { Model } from 'mongoose';
 import { User } from '../schemas/user.schema';
+import * as mongoose  from 'mongoose';
 @Injectable()
 export class NotesService {
 
   constructor(@InjectModel(Note.name) private noteModel: Model<NoteDocument>) {}
 
-  create(createNoteDto: CreateNoteDto, author: User) {
-    const createdNote = new this.noteModel(createNoteDto,author);
+  async create(createNoteDto: CreateNoteDto) {
+    const createdNote = new this.noteModel(createNoteDto);
     return createdNote.save();
   }
 
@@ -25,9 +26,18 @@ export class NotesService {
     return notes[0];
   }
 
-  async findByAuther(id: number){
-    const user= await this.noteModel.find({idUser:id}).exec();
-    return user[0];
+  async findByAuther(id: string){
+    const user= await this.noteModel.find({author:new mongoose.Types.ObjectId(id)}).exec();
+    return user;
+  }
+
+  update(id: string, updateNoteDto: UpdateNoteDto) {
+    console.log(id)
+    return this.noteModel.findByIdAndUpdate(new mongoose.Types.ObjectId(id),{title:updateNoteDto["title"],description:updateNoteDto["description"]}).exec();
+  }
+
+  remove(id: string) {
+    return this.noteModel.findByIdAndDelete(new mongoose.Types.ObjectId(id)).exec();
   }
 
 }

@@ -36,4 +36,8 @@ export class CollaborationsService {
   remove(id: string) {
     return this.collaborationModel.findByIdAndDelete(new mongoose.Types.ObjectId(id)).exec();
   }
+
+  getByCollab(id: string){
+    return this.collaborationModel.findOne({collaborator:new mongoose.Types.ObjectId(id)}).populate('notes').exec();
+  }
 }

@@ -9,8 +9,8 @@ export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
   @Post("add")
-  create(@Body() createNoteDto: CreateNoteDto, author : User) {
-    return this.notesService.create(createNoteDto, author);
+  create(@Body() createNoteDto: CreateNoteDto) {
+    return this.notesService.create(createNoteDto);
   }
 
   @Get()
@@ -21,6 +21,21 @@ export class NotesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.notesService.findOne(+id);
+  }
+
+  @Get('author/:id')
+  findByAuther(@Param('id') id: string) {
+    return this.notesService.findByAuther(id);
+  }
+
+  @Patch('update/:id')
+  update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
+    return this.notesService.update(id, updateNoteDto);
+  }
+
+  @Delete('delete/:id')
+  remove(@Param('id') id: string) {
+    return this.notesService.remove(id);
   }
 
 }

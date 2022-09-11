@@ -35,4 +35,9 @@ export class CollaborationsController {
   remove(@Param('id') id: string) {
     return this.collaborationsService.remove(id);
   }
+
+  @Get('collaborator/:id')
+  getByCollab(@Param('id') id: string) {
+    return this.collaborationsService.getByCollab(id);
+  }
 }
