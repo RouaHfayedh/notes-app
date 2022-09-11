@@ -21,8 +21,8 @@ export class NotesService {
   }
 
   async findOne(id: number) {
-    const user= await this.noteModel.find({id:id}).exec();
-    return user[0];
+    const notes= await this.noteModel.find({id:id}).exec();
+    return notes[0];
   }
 
   async findByAuther(id: number){

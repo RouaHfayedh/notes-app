@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { NotesModule } from './notes/notes.module';
+import { CollaborationsModule } from './collaborations/collaborations.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { NotesModule } from './notes/notes.module';
     UsersModule,
     AuthModule,
     ConfigModule.forRoot(),
-    NotesModule
+    NotesModule,
+    CollaborationsModule
   ],
   controllers: [AppController],
   providers: [AppService],
